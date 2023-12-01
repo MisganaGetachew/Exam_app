@@ -28,6 +28,7 @@ return(
 <MyContext.Provider value={{ data, setData}}>
   <Routes>
     <Route path='' element = {<Home />}/>
+    <Route path='stud_login' element = {<StudentHome />}/>
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/secured" element={<SecuredPage />} />
@@ -49,7 +50,7 @@ const navigate = useNavigate()
 
   function user (user){
       if (user == "student"){
-        navigate('')
+        navigate('stud_login')
 
       }
       else if(user == "teacher"){
@@ -74,6 +75,34 @@ return (
 )
   
 
+}
+
+
+function StudentHome(){
+
+const navigate = useNavigate()
+
+
+  function user (user){
+     if(user == "teacher"){
+      navigate('/')
+
+    }
+
+}
+
+
+  return (
+
+    <div className='square_div'><h1>Page under development</h1>
+  
+    {/* <button className='button_sec_home' onClick={()=> user("student")}>Student</button> <br></br> */}
+    <button className='button_sec_home' onClick={()=> user("teacher")}>Home</button>
+    
+    </div>
+  )
+
+  
 }
 
 
