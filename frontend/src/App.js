@@ -14,13 +14,21 @@ import SecuredPage from './component/SecuredPage'
 
 export default function App(){
 
-const [data, setData] = useState('') 
+const [data, setData] = useState('')
+const [user, setUser] = useState('') 
+
+// function User(user){
+//   setUser(user)
+//   console.log(user)
+
+// }
 
 return(
 
-<MyContext.Provider value={{ data, setData }}>
+<MyContext.Provider value={{ data, setData}}>
   <Routes>
-    <Route path="/" element={<Login />} />
+    <Route path='' element = {<Home />}/>
+    <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/secured" element={<SecuredPage />} />
   </Routes>
@@ -29,6 +37,43 @@ return(
 
 
   )
+}
+
+
+
+
+ function Home(props){
+
+const navigate = useNavigate()
+
+
+  function user (user){
+      if (user == "student"){
+        navigate('')
+
+      }
+      else if(user == "teacher"){
+        navigate('/login')
+
+      }
+
+  }
+
+
+return (
+  <div className='square_div'><h1>who are you?</h1>
+  
+  <button className='button_sec_home' onClick={()=> user("student")}>Student</button> <br></br>
+  <button className='button_sec_home' onClick={()=> user("teacher")}>Teacher</button>
+  
+  </div>
+
+  
+
+
+)
+  
+
 }
 
 

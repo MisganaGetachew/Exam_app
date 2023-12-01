@@ -35,7 +35,7 @@ margin-top: 8%;
 /* border: 1px black; */
 background-color: rgb(255, 255, 255);
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-color: rgb(106, 0, 255);
+color: rgb(128, 0, 255);
 /* outline-color: rgb(106, 0, 255); */
 
 background-color: azure;
@@ -67,7 +67,7 @@ box-shadow: 1px 1px 1px 2px #00000013;
   border-color:rgba(0, 255, 255, 0.382);
   font-weight: bolder;
   border-width: 0.1px;
-  outline-color: rgb(106, 0, 255);
+  outline-color: aqua;
   /* outline: none; */
   padding: 10px;
   width: 300px;
@@ -100,9 +100,10 @@ box-shadow: 1px 1px 1px 2px #00000013;
   height: 35px;
   width: 100px;
   border-width: 1px;  
-   /* border-color: aqua; */
+  border-color: rgb(128, 0, 255); 
+
    
-  background-color: rgb(78, 0, 187);
+  background-color: rgb(128, 0, 255)  ;
   /* border: none; */
   box-shadow: 1px 1px 1px 2px #00000013;
 
@@ -285,4 +286,29 @@ textarea {
 .options{
   font-weight: bolder;
   
+}
+
+
+.button_sec_home{
+
+  outline: rgb(128, 0, 255);
+  /* margin-left: 70px; */
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+/* background-color: aqua; */
+  border-radius: 20px;
+  font-size: 25px;
+  cursor:pointer;
+  color: rgb(255, 255, 255);
+  height: 45px;
+  width: 250px;
+  border-width: 1px; 
+   border-color: rgb(128, 0, 255); 
+  background-color:rgb(106, 0, 255);
+  /* border: none; */
+  /* box-shadow: 1px 1px 1px 2px #00000013; */
+
+
 }

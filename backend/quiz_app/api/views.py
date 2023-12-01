@@ -111,3 +111,8 @@ def add_question(request):
                     question_type=request.data["type"], question=request.data["question"])
                 exam.save()
                 return Response({'message': "question saved succesfully! "})
+
+
+@api_view(['GET', 'POST'])
+def get_question(request):
+    return Response({'message': "question asked properlly"})
