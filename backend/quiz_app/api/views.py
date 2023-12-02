@@ -27,32 +27,38 @@ class findUsers(generics.ListCreateAPIView):
 
 
 # for Exam Takers or students
-@api_view(['GET'])
-def check_user_exists(request, email):
+@api_view(['GET', 'POST'])
+def check_user_exists(request):
+    # i changed the request type to (post)  so change the func accordingly
+    if request.method == "POST":
+        if request.data["user"] == "student":
+            try:
+                # print(request)
+                data = ExamTakers.objects.get(
+                    user_email=request.data["user_email"].lower())
+                return Response({'user_exists': True,
+                                'user_name': data.user_name,
+                                 'message': "succefully Logged in"})
 
-    if request.data["user"] == "student":
-        try:
-            # print(request)
-            data = ExamTakers.objects.get(user_email=email.lower())
-            return Response({'user_exists': True,
-                            'user_name': data.user_name,
-                             'message': "succefully Logged in"})
+            except ExamTakers.DoesNotExist:
+                return Response({'user_exists': False,
+                                'message': "user doesn't exist"})
 
-        except ExamTakers.DoesNotExist:
+        elif request.data["user"] == "teacher":
+            try:
+                # print(request)
+                data = ExamGivers.objects.get(
+                    user_email=request.data["user_email"].lower())
+                return Response({'user_exists': True,
+                                'user_name': data.user_name,
+                                 'message': "succefully Logged in"})
+
+            except ExamGivers.DoesNotExist:
+                return Response({'user_exists': False,
+                                'message': "user doesn't exist"})
+        else:
             return Response({'user_exists': False,
-                            'message': "user doesn't exist"})
-
-    elif request.data["user"] == "teacher":
-        try:
-            # print(request)
-            data = ExamGivers.objects.get(user_email=email.lower())
-            return Response({'user_exists': True,
-                            'user_name': data.user_name,
-                             'message': "succefully Logged in"})
-
-        except ExamGivers.DoesNotExist:
-            return Response({'user_exists': False,
-                            'message': "user doesn't exist"})
+                             'message': "please let the program know if you are student or teacher"})
 
 
 @api_view(['POST'])
@@ -75,14 +81,16 @@ def add_user(request):
                 return Response({'message': 'Signedup succesfully! Go to login page?'})
         elif request.data["user"] == "teacher":
             try:
+                print('error in try exeption')
                 user = ExamGivers.objects.get(
                     user_email=request.data["user_email"])
                 print('User already exists')
                 return Response({'message': 'User already exists'})
-            except ExamTakers.DoesNotExist:
+            except ExamGivers.DoesNotExist:
                 # doing the saving to the data base here
-                instance = ExamGivers(user_name=request.data["user_name"],
-                                      user_email=request.data["user_email"].lower(
+                print('error in the exeption')
+                instance = ExamGivers.objects.create(user_name=request.data["user_name"],
+                                                     user_email=request.data["user_email"].lower(
                 ),
                     user_password=request.data["password"])
                 instance.save()

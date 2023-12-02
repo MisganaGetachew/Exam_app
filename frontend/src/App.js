@@ -14,8 +14,8 @@ import SecuredPage from './component/SecuredPage'
 
 export default function App(){
 
-const [data, setData] = useState('')
-const [user, setUser] = useState('') 
+const [data, setData] = useState(" ")
+const [user, setUser] = useState() 
 
 // function User(user){
 //   setUser(user)
@@ -25,9 +25,9 @@ const [user, setUser] = useState('')
 
 return(
 
-<MyContext.Provider value={{ data, setData}}>
+<MyContext.Provider value={{ data, setData, user, setUser}}>
   <Routes>
-    <Route path='' element = {<Home />}/>
+    <Route path='/' element = {<Home />}/>
     <Route path='stud_login' element = {<StudentHome />}/>
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
@@ -46,30 +46,21 @@ return(
  function Home(props){
 
 const navigate = useNavigate()
+const {user, setUser} = useContext(MyContext)
 
-
-  function user (user){
-      if (user == "student"){
-        navigate('stud_login')
-
-      }
-      else if(user == "teacher"){
-        navigate('/login')
-
-      }
-
-  }
+  function User (msg){
+    setUser(msg)
+    navigate('/login')
+    }
 
 
 return (
   <div className='square_div'><h1>who are you?</h1>
   
-  <button className='button_sec_home' onClick={()=> user("student")}>Student</button> <br></br>
-  <button className='button_sec_home' onClick={()=> user("teacher")}>Teacher</button>
+  <button className='button_sec_home' onClick={()=> User("student")}>Student</button> <br></br>
+  <button className='button_sec_home' onClick={()=> User("teacher")}>Teacher</button>
   
   </div>
-
-  
 
 
 )
@@ -79,25 +70,25 @@ return (
 
 
 function StudentHome(){
-
+const {user, setUser} = useContext(MyContext)
 const navigate = useNavigate()
 
-
-  function user (user){
-     if(user == "teacher"){
-      navigate('/')
-
-    }
-
+function studHome(){
+  navigate('/')
 }
+
+  function User (msg){
+    setUser(msg)
+    navigate('/login')
+    }
 
 
   return (
 
     <div className='square_div'><h1>Page under development</h1>
   
-    {/* <button className='button_sec_home' onClick={()=> user("student")}>Student</button> <br></br> */}
-    <button className='button_sec_home' onClick={()=> user("teacher")}>Home</button>
+    <button className='button_sec_home' onClick={()=> User("teacher")}>Teacher</button> <br></br>
+    <button className='button_sec_home' onClick={studHome}>Home</button>
     
     </div>
   )

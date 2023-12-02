@@ -20,6 +20,8 @@ function Signup(){
     const [pass2, setPass2] = useState('')
     const [message, setMessage] = useState('')
     const navigate = useNavigate()
+   const { user, setUser } = useContext(MyContext);
+
 
 
     const mystyle = {
@@ -34,7 +36,9 @@ function Signup(){
       e.preventDefault();
 
      // call server for signup
-      const jasonData = {"user_email": email, "user_name": name, "password": pass1, "password_confirmed": pass2 }
+
+     
+      const jasonData = {"user_email": email, "user_name": name, "password": pass1, "password_confirmed": pass2, "user":user }
 
       axios.post("http://localhost:8000/add_user", jasonData)
       .then(response=>{
@@ -43,7 +47,7 @@ function Signup(){
         setMessage(response.data.message)
         if(response.data.message === 'Signedup succesfully! Go to login page?'){
           alert(response.data.message)
-        navigate("/");
+        navigate("/login");
 
         }
 
