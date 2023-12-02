@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from rest_framework import generics
 # imported the model Examtaker so that we can make some queries
-from .models import ExamTakers, Exam
+from .models import ExamTakers, Exam, ExamGivers
 from .serializers import UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -26,37 +26,67 @@ class findUsers(generics.ListCreateAPIView):
         return ExamTakers.objects.all()
 
 
+# for Exam Takers or students
 @api_view(['GET'])
 def check_user_exists(request, email):
 
-    try:
-        # print(request)
-        data = ExamTakers.objects.get(user_email=email.lower())
-        return Response({'user_exists': True,
-                         'user_name': data.user_name,
-                         'message': "succefully Logged in"})
+    if request.data["user"] == "student":
+        try:
+            # print(request)
+            data = ExamTakers.objects.get(user_email=email.lower())
+            return Response({'user_exists': True,
+                            'user_name': data.user_name,
+                             'message': "succefully Logged in"})
 
-    except ExamTakers.DoesNotExist:
-        return Response({'user_exists': False,
-                         'message': "user doesn't exist"})
+        except ExamTakers.DoesNotExist:
+            return Response({'user_exists': False,
+                            'message': "user doesn't exist"})
+
+    elif request.data["user"] == "teacher":
+        try:
+            # print(request)
+            data = ExamGivers.objects.get(user_email=email.lower())
+            return Response({'user_exists': True,
+                            'user_name': data.user_name,
+                             'message': "succefully Logged in"})
+
+        except ExamGivers.DoesNotExist:
+            return Response({'user_exists': False,
+                            'message': "user doesn't exist"})
 
 
 @api_view(['POST'])
 def add_user(request):
     if request.method == "POST":
-        try:
-            user = ExamTakers.objects.get(
-                user_email=request.data["user_email"])
-            print('User already exists')
-            return Response({'message': 'User already exists'})
-        except ExamTakers.DoesNotExist:
-            # do the saving to the data base here
-            instance = ExamTakers(user_name=request.data["user_name"],
-                                  user_email=request.data["user_email"].lower(
-            ),
-                user_password=request.data["password"])
-            instance.save()
-            return Response({'message': 'Signedup succesfully! Go to login page?'})
+        # makking sure a user key data is sent from frontend with student/teacher users
+        if request.data["user"] == "student":
+            try:
+                user = ExamTakers.objects.get(
+                    user_email=request.data["user_email"])
+                print('User already exists')
+                return Response({'message': 'User already exists'})
+            except ExamTakers.DoesNotExist:
+                # do the saving to the data base here
+                instance = ExamTakers(user_name=request.data["user_name"],
+                                      user_email=request.data["user_email"].lower(
+                ),
+                    user_password=request.data["password"])
+                instance.save()
+                return Response({'message': 'Signedup succesfully! Go to login page?'})
+        elif request.data["user"] == "teacher":
+            try:
+                user = ExamGivers.objects.get(
+                    user_email=request.data["user_email"])
+                print('User already exists')
+                return Response({'message': 'User already exists'})
+            except ExamTakers.DoesNotExist:
+                # doing the saving to the data base here
+                instance = ExamGivers(user_name=request.data["user_name"],
+                                      user_email=request.data["user_email"].lower(
+                ),
+                    user_password=request.data["password"])
+                instance.save()
+                return Response({'message': 'Signedup succesfully! Go to login page?'})
 
 
 @api_view(['GET'])
@@ -83,8 +113,8 @@ def g_knowledge(request):
 def add_question(request):
 
     if request.method == "POST":
-
-        if request.data["type"] == 'choice':
+        print(request.data)
+        if request.data["question_type"] == 'choice':
             try:
                 exam = Exam.objects.get(question=request.data["question"])
                 # print("Question already Exists")
@@ -96,11 +126,11 @@ def add_question(request):
                 print(request.method)
                 # choices_list = json.loads(request.data["choice_list"])
                 exam = Exam.objects.create(
-                    question_type=request.data["type"], question=request.data["question"], question_choices=request.data["choice_list"])
+                    question_type=request.data["question_type"], question=request.data["question"], question_choices=request.data["choice_list"])
                 exam.save()
                 return Response({'message': "question saved succesfully! "})
-
-        elif request.data["type"] == 'choice':
+        # make sure the frontend is sending similar key : question_type
+        elif request.data["question_type"] == 'text':
             try:
                 exam = Exam.objects.get(question=request.data["question"])
                 # print("Question already Exists")
@@ -108,11 +138,12 @@ def add_question(request):
                 return Response({'message': "question already exits,  Use a different one"})
             except Exam.DoesNotExist:
                 exam = Exam.objects.create(
-                    question_type=request.data["type"], question=request.data["question"])
+                    question_type=request.data["question_type"], question=request.data["question"])
                 exam.save()
                 return Response({'message': "question saved succesfully! "})
 
 
 @api_view(['GET', 'POST'])
 def get_question(request):
+
     return Response({'message': "question asked properlly"})

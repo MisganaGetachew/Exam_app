@@ -11,7 +11,7 @@ import { MyContext } from '../context/MyContext'
 
 export default function SecuredPage(){
     const { data, setData } = useContext(MyContext);
-    const [type, setType] = useState('') 
+    const [type, setType] = useState() 
     const [question, setQuestion] = useState()
     
     function questionSender( question){
@@ -20,7 +20,7 @@ export default function SecuredPage(){
       console.log(type)
       let jasonData = ""
       if(type == "choice"){
-        question["type"] = type
+        question["question_type"] = type
         jasonData = question
         console.log(jasonData);
       }

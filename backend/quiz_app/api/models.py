@@ -35,5 +35,10 @@ class Exam(models.Model):
         return f" {self.question}  "
 
 
-class Choice(models.Model):
-    choice = models.CharField(max_length=300)
+class ExamGivers(models.Model):
+    user_name = models.CharField(max_length=100, default='')
+    user_email = models.CharField(max_length=100, unique=True)
+    user_password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.user_name}"
