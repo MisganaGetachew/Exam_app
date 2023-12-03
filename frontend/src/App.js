@@ -8,6 +8,7 @@ import './component/Login'
 import Login from './component/Login'
 import Signup from './component/Signup'
 import SecuredPage from './component/SecuredPage'
+import StudentHome from './component/StudentHome'
 
 
 
@@ -69,32 +70,6 @@ return (
 }
 
 
-function StudentHome(){
-const {user, setUser} = useContext(MyContext)
-const navigate = useNavigate()
-
-function studHome(){
-  navigate('/')
-}
-
-  function User (msg){
-    setUser(msg)
-    navigate('/login')
-    }
-
-
-  return (
-
-    <div className='square_div'><h1>Page under development</h1>
-  
-    <button className='button_sec_home' onClick={()=> User("teacher")}>Teacher</button> <br></br>
-    <button className='button_sec_home' onClick={studHome}>Home</button>
-    
-    </div>
-  )
-
-  
-}
 
 
 
