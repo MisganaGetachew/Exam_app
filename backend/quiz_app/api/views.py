@@ -153,5 +153,9 @@ def add_question(request):
 
 @api_view(['GET', 'POST'])
 def get_question(request):
-
-    return Response({'message': "question asked properlly"})
+    all = list(Exam.objects.values("question"))
+    for value in all:
+        # make some rerearch on how to send python list data over jason file format
+        print(value)
+    json_data = json.dumps(all)
+    return Response({'message': "question retrived properlly", "object": all})

@@ -15,17 +15,28 @@ export default function StudentHome(){
       navigate('/')
     }
     
-      function User (msg){
-        setUser(msg)
-        navigate('/login')
-        }
+    function User (){
+
+
+        axios.get('http://localhost:8000/get_question')
+        .then(response =>{
+            console.log(response.data.message)
+            console.log(response.data.object)
+
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+        
     
     
       return (
     
         <div className='square_div'><h1>{data.user_name}</h1>
       
-        <button className='button_sec_home' onClick={()=> User("teacher")}>Teacher</button> <br></br>
+        <button className='button_sec_home' onClick={ User}>Take Exam</button> <br></br>
         <button className='button_sec_home' onClick={studHome}>Home</button>
         
         </div>
