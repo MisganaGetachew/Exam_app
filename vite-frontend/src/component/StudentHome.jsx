@@ -8,6 +8,7 @@ import { useState, useContext , useEffect , useRef} from 'react'
 export default function StudentHome(){
     const {user, setUser} = useContext(MyContext)
     const { data, setData } = useContext(MyContext);
+    const [examData, SetExamData] = useState()
     const navigate = useNavigate()
 
     
@@ -15,6 +16,7 @@ export default function StudentHome(){
       navigate('/')
     }
     
+
     function User (){
 
 
@@ -43,5 +45,14 @@ export default function StudentHome(){
       )
     
       
+    }
+
+
+    function ExamRoom(){
+
+
+
+
+
     }
     
