@@ -9,6 +9,7 @@ import Login from './component/Login'
 import Signup from './component/Signup'
 import SecuredPage from './component/SecuredPage'
 import StudentHome from './component/StudentHome'
+import ExamRoom from './component/ExamRoom'
 
 
 
@@ -35,6 +36,8 @@ export default function App(){
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/secured" element={<SecuredPage />} />
+      <Route path="/exam_room" element={<ExamRoom />} />
+
     </Routes>
   </MyContext.Provider>
      

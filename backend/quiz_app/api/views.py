@@ -155,8 +155,8 @@ def add_question(request):
 def get_question(request):
     all = list(Exam.objects.values(
         "question_type", "question", "question_choices"))
-    for value in all:
-        # make some rerearch on how to send python list data over jason file format
-        print(value)
+    # for value in all:
+    # make some rerearch on how to send python list data over jason file format
+    # print(value)
     json_data = json.dumps(all)
     return Response({'message': "question retrived properlly", "object": all})

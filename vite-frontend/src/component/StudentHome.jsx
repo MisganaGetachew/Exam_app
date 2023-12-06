@@ -8,7 +8,6 @@ import { useState, useContext , useEffect , useRef} from 'react'
 export default function StudentHome(){
     const {user, setUser} = useContext(MyContext)
     const { data, setData } = useContext(MyContext);
-    const [examData, SetExamData] = useState()
     const navigate = useNavigate()
 
     
@@ -20,16 +19,19 @@ export default function StudentHome(){
     function User (){
 
 
-        axios.get('http://localhost:8000/get_question')
-        .then(response =>{
-            console.log(response.data.message)
-            console.log(response.data.object)
+        // axios.get('http://localhost:8000/get_question')
+        // .then(response =>{
+        //     console.log(response.data.message)
+        //     console.log(response.data.object)
+        //     SetExamData(response.data.object)
+        //     {examData?<ExamRoom data = {examData}/>:null}
 
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
+navigate('/exam_room')
+      
     }
         
     
@@ -40,7 +42,11 @@ export default function StudentHome(){
       
         <button className='button_sec_home' onClick={ User}>Take Exam</button> <br></br>
         <button className='button_sec_home' onClick={studHome}>Home</button>
+        {/* {examData?
         
+        examData.map((element)=>{<h5>{element.question}</h5>})
+        :null}
+         */}
         </div>
       )
     
@@ -48,11 +54,3 @@ export default function StudentHome(){
     }
 
 
-    function ExamRoom(){
-
-
-
-
-
-    }
-    
