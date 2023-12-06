@@ -117,8 +117,10 @@ export default function SecuredPage(){
  <br></br>
         <form onSubmit={(e) => setTexter(text, e)}>
           <textarea id='essay_question' className='textarea_sec' rows={5} cols={50} onChange={(e) => setText(e.target.value)} placeholder='write your Essay question here' required></textarea><br></br>
-<         button className='button_sec'>+</button>
-        <input className='button_sec' type='submit'/></form>
+        <input className='button_sec' type='submit'/>
+        
+        </form>
+        <button className='button_sec'>+</button>
          
 
       </div>
@@ -170,6 +172,8 @@ export default function SecuredPage(){
       
         
 
+
+  <input className='choice' placeholder='insert Answer' value={answer} onChange={(e) => setAnswer(e.target.value)} required/><br></br>
   {choice.map((element, index) => 
   <input className='choice' key = {index} value={choice[index]} onChange={(e)=>{
     const newarr = [...choice]
@@ -177,12 +181,11 @@ export default function SecuredPage(){
     setChoice(newarr)
   }
 
-  } placeholder={`Choice ${index + 1}` } /> )} 
-  <input className='choice' placeholder='insert Answer' value={answer} onChange={(e) => setAnswer(e.target.value)} required/><br></br>
-  <input  className = "button_sec" type='submit'/><button className='button_sec' onClick={addChoice}>add choice</button>
-</form>
-
+  } placeholder={`Choice ${index + 1}` } /> )} <br></br>
+  <input  className = "button_sec" type='submit'/>
 {/* <button className='button_sec' onClick={addQuestion}>question</button> */}
+</form>
+<button className='button_sec' onClick={addChoice}>add choice</button>
 
 
     </div>  )
