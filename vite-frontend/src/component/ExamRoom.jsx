@@ -1,26 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useContext , useEffect , useRef} from 'react'
 import axios from 'axios';
+import { MyContext } from '../context/MyContext'
+
 
 export default function ExamRoom() {
+  // const [examData, setExamData] = useState([]);  use it as a context
+  const [dataFetched, setDataFethced] = useState(false)
+  const { examData, setExamData } = useContext(MyContext);
+
+
+  // The empty dependency array ensures this effect runs only once (on mount)'
+
+  // so here is the plan work on a single question first.  
+
+
+
+  return (
+    <div>
+              
+            <h3>{examData.object[18].question}</h3>
+
+            {JSON.parse(examData.choices[18].question_choices).map((element, index) => 
+            
+            <h5 key={index}>{index } - {element}</h5>
+            
+           
+            )}
+
+
+           
+      
+      
+    </div>
+  );
+}
+
+
+
+// this is is to make multiple questions appear
+{/* {examData.map((element, index) => ( // Added return statement and key for each element
+       <div className='exam_room'> <h4 key={index}>{element.question}</h4>
+        <input type="radio" value="" />{element.question_choices}
+      
+        
+        </div>
+      ))} */}
+
+
+function fetchExam(){
+
+
   const [examData, setExamData] = useState([]);
 
-  useEffect(() => {
+  
     axios.get('http://localhost:8000/get_question')
       .then(response => {
         console.log(response.data.message);
-        console.log(response.data.object);
+        console.log("question data --> " + response.data.object[18].question);
         setExamData(response.data.object);
+        console.log(response.data.choices)
       })
       .catch(error => {
         console.log(error);
       });
-  }, []); // The empty dependency array ensures this effect runs only once (on mount)
 
-  return (
-    <div>
-      {examData.map((element, index) => ( // Added return statement and key for each element
-        <h5 key={index}>{element.question}</h5>
-      ))}
-    </div>
-  );
+
 }
+

@@ -20,6 +20,8 @@ export default function App(){
 
   const [data, setData] = useState(" ")
   const [user, setUser] = useState() 
+  const [examData, setExamData] = useState();
+
   
   // function User(user){
   //   setUser(user)
@@ -27,9 +29,10 @@ export default function App(){
   
   // }
   
+
   return(
   
-  <MyContext.Provider value={{ data, setData, user, setUser}}>
+  <MyContext.Provider value={{ data, setData, user, setUser, examData, setExamData}}>
     <Routes>
       <Route path='/' element = {<Home />}/>
       <Route path='stud_login' element = {<StudentHome />}/>
