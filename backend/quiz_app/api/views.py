@@ -154,7 +154,7 @@ def add_question(request):
 @api_view(['GET', 'POST'])
 def get_question(request):
     questions = list(Exam.objects.values(
-        "question_type", "question", "question_choices"))
+        "id", "question_type", "question", "question_choices"))
     choices = list(Exam.objects.values("question_choices"))
 
     # make some rerearch on how to send python list data over jason file format

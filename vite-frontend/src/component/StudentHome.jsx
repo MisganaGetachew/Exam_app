@@ -30,16 +30,34 @@ export default function StudentHome(){
         console.log(response.data.message);
         console.log("data sent from backend");
         console.log(response.data.object);
-        console.log("question data --> " + response.data.object[18].question);
-        setExamData(response.data);
-        console.log(response.data.choices[18].question_choices)
+        // console.log("question data --> " + response.data.object[18].question);
+        // console.log(response.data.choices[18].question_choices)
+// write a loop to traverse throup the 
+        let examObject = [];
+        response.data.object.forEach(element =>  { if(element.question_type == "choice"){
+           examObject.push(element)
+          element.question_choices = JSON.parse(element.question_choices)
+          // do some randimization here, it's hard do from the backend
+          
+          }
+          
+        });          
+
+        setExamData(examObject);
+        console.log("this is exam object")
+        console.log(examObject)
+
+        
+
+
+
         setDataFethced(true)
         navigate('/exam_room')
         // alert("question retrived")
       })
       .catch(error => {
         console.log(error);
-        alert(error)
+        alert("sorry the Exam room is on close for now !")
       });
       
     }

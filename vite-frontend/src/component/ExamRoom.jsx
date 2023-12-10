@@ -20,26 +20,22 @@ export default function ExamRoom() {
               
             {/* <h3>{examData.object[18].question}</h3> */}
 
-            {examData.object.map((element, index) => 
+            {examData.map((element, index) => 
             <div>
-            <h3>{element.question}</h3>
-                
+                          
 
               
-              {/* {JSON.parse(element.choices).map((el, ind)=>
-              <div> 
-                
-                <input key={ind} type="radio" value={element} />{el} 
-              
-              </div>
+  
+               
+               <Question question = {element.question}  choices = {element.question_choices}  id = {element.id}/>     
              
-              
-              )} */}
-
+      
             </div>
             
            
             )}
+
+          
 
 
            
@@ -61,23 +57,21 @@ export default function ExamRoom() {
       ))} */}
 
 
-function fetchExam(){
+function Question(props){
 
+  return(
+      <div className='square_div_Exam'>
 
-  const [examData, setExamData] = useState([]);
+        <h2>{props.question}</h2>
+        {props.choices.map((element, index)=>
+        <div className='choice' > <input key={index} type="radio" name={props.id} value={element}/>{element}
+        </div>
+       
+        )}
+        
+
+      </div>
+  )
 
   
-    axios.get('http://localhost:8000/get_question')
-      .then(response => {
-        console.log(response.data.message);
-        console.log("question data --> " + response.data.object[18].question);
-        setExamData(response.data.object);
-        console.log(response.data.choices)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-
 }
-
