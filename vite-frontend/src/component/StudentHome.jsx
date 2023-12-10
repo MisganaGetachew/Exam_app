@@ -28,6 +28,8 @@ export default function StudentHome(){
       axios.get('http://localhost:8000/get_question')
       .then(response => {
         console.log(response.data.message);
+        console.log("data sent from backend");
+        console.log(response.data.object);
         console.log("question data --> " + response.data.object[18].question);
         setExamData(response.data);
         console.log(response.data.choices[18].question_choices)

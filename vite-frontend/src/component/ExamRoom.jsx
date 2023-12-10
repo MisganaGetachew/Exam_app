@@ -18,11 +18,25 @@ export default function ExamRoom() {
   return (
     <div>
               
-            <h3>{examData.object[18].question}</h3>
+            {/* <h3>{examData.object[18].question}</h3> */}
 
-            {JSON.parse(examData.choices[18].question_choices).map((element, index) => 
-            
-            <h5 key={index}>{index } - {element}</h5>
+            {examData.object.map((element, index) => 
+            <div>
+            <h3>{element.question}</h3>
+                
+
+              
+              {/* {JSON.parse(element.choices).map((el, ind)=>
+              <div> 
+                
+                <input key={ind} type="radio" value={element} />{el} 
+              
+              </div>
+             
+              
+              )} */}
+
+            </div>
             
            
             )}
